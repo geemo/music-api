@@ -2,7 +2,7 @@
 
 /* 网易云音乐数据加密模块, 参考了https://github.com/axhello/NeteaseCloudMusicApi
  * @author: geemo<153330685@qq.com>
- * @version: 0.0.1
+ * @version: 1.0.0
  * @create at: 2016-09-07
  * @license: MIT
  */
@@ -27,7 +27,7 @@ function encryptData(data) {
 	const secKey = _createSecKey(16);
 	return {
 		params: _aesEncrypt(_aesEncrypt(data, _NONCE), secKey),
-		encSecKey: _rsaEncrypt(data, _PUBKEY, _MODULUS)
+		encSecKey: _rsaEncrypt(secKey, _PUBKEY, _MODULUS)
 	};
 }
 
@@ -60,7 +60,7 @@ function _strPad(encTxt, len, char, padLeft) {
  */
 function _aesEncrypt(data, secKey) {
 	const cipher = crypto.createCipheriv('AES-128-CBC', secKey, '0102030405060708');
-	return cipher.update(data, 'utf8', 'base64') + cipher.final('base64');
+	return cipher.update(data, 'utf-8', 'base64') + cipher.final('base64');
 }
 
 /* 返回rsa加密后的结果 私有

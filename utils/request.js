@@ -2,7 +2,7 @@
 
 /* http或https请求模块
  * @author: geemo<153330685@qq.com>
- * @version: 0.0.1
+ * @version: 1.0.0
  * @create at: 2016-09-08
  * @license: MIT
  */
@@ -10,6 +10,7 @@
 const http = require('http');
 const https = require('https');
 const parseUrl = require('url').parse;
+const stringify = require('querystring').stringify;
 
 exports = module.exports = request;
 
@@ -36,9 +37,11 @@ function request(opts, callback) {
 		  protocol = urlObj.protocol,
 		  httpMethod = protocol === 'http:' ? http : https;
 
+	form = typeof form === 'object' ? stringify(form) : form;
 	const headerKeys = Object.keys(headers).map(key => key.toLowerCase());
-
-	if(headerKeys.indexOf('referer') !== -1) headers['Referer'] = url;
+	
+	if(headerKeys.indexOf('content-length') === -1) headers['Content-Length'] = form.length;
+	if(headerKeys.indexOf('content-type') === -1) headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
 	const options = {
 		protocol: protocol,
@@ -56,22 +59,11 @@ function request(opts, callback) {
 			chunks.push(data)
 		}).on('end', () => {
 			let result = Buffer.concat(chunks).toString('utf8');
-			if(/json/.test(res.headers['content-type'])) {
-				try {
-					result = JSON.parse(result);
-				} catch(e) {
-					return callback(e);
-				}
-			}
-
-			callback(null, {headers: res.headers, body: result});
+			callback(null, res, result);
 		});
 	});
 
 	req.on('error', callback);
-
-	form = typeof form === 'object' ? JSON.stringify(form) : form;
-	if(headerKeys.indexOf('content-length') !== -1) headers['Content-Length'] = form.length;
 
 	req.end(form);
 }
