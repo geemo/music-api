@@ -11,7 +11,7 @@ const musicApi = new MusicApi();
 //     }, console.error.bind(console));
 
 musicApi
-    .mp3Url('34380473')
+    .mp3Url('40915694')
     .then(result => {
         console.log(JSON.stringify(result, null, ' '));
     }, console.error.bind(console));

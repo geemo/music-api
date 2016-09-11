@@ -47,10 +47,8 @@ function _strPad(encTxt, len, char, padLeft) {
 	const tailChar = char.slice(0, len - charLen * repeatNum);
 	const padStr = char.repeat(repeatNum) + tailChar;
 
-	if(padLeft) 
-		return padStr + encTxt;
-	else
-		return encTxt + padStr;
+	if(padLeft) return padStr + encTxt;
+	else return encTxt + padStr;
 }
 
 /* 返回aes加密后的结果 私有

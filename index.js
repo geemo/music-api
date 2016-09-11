@@ -119,7 +119,7 @@ class MusicApi {
 			}, err => err);
 	}
 
-	/* 根据id过去歌词，包括原文歌词和翻译成中文的歌词
+	/* 根据id获取歌词，包括原文歌词和翻译成中文的歌词
 	 * @param {String} songId 歌曲id
 	 * @return {Promise}
 	 */ 
