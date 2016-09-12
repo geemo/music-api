@@ -7,8 +7,8 @@
  * @license: MIT
  */
 
-const encryptData = require('./utils/crypto.js').encryptData;
-const request = require('./utils/request.js');
+const encryptData = require('./lib/crypto.js').encryptData;
+const request = require('./lib/request.js');
 
 class MusicApi {
 	constructor() {}
