@@ -72,6 +72,7 @@ class MusicApi {
 		return this._request(url, data, 'json')
 			.then(resData => {
 				if (resData.code === 200) {
+					console.log(resData);
 					resData.songs = resData.songs.map(song => {
 						return {
 							name: song.name,
@@ -110,7 +111,8 @@ class MusicApi {
 					resData.data = resData.data.map(d => {
 						return {
 							id: d.id,
-							url: d.url
+							url: d.url,
+							expires: d.expi
 						};
 					});
 				}

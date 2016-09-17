@@ -17,6 +17,12 @@ musicApi
     }, console.error.bind(console));
 
 // musicApi
+//     .mp3Url('22743829')
+//     .then(result => {
+//         console.log(JSON.stringify(result, null, ' '));
+//     }, console.error.bind(console));
+
+// musicApi
 //     .mv('5360424')
 //     .then(result => {
 //         console.log(JSON.stringify(result, null, ' '));
